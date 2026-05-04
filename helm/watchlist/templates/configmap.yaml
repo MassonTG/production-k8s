@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: watchlist-config
+  namespace: {{ .Values.namespace }}
+data:
+  DATABASE_URL: "postgresql://{{ .Values.postgres.user }}:{{ .Values.postgres.password }}@postgres:5432/{{ .Values.postgres.db }}"
+  REDIS_URL: "redis://{{ .Values.redis.host }}:6379"

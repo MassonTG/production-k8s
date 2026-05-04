@@ -1,0 +1,160 @@
+---
+- name: Initial server setup
+  hosts: k3s
+  become: true
+
+  vars:
+    username: devops
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      apt:
+        name:
+          - curl
+          - wget
+          - git
+          - htop
+          - net-tools
+          - ufw
+          - fail2ban
+          - lvm2
+          - python3-pip
+        state: present
+
+    - name: Create devops user
+      user:
+        name: "{{ username }}"
+        groups: sudo
+        shell: /bin/bash
+        create_home: yes
+
+    - name: Add SSH key for devops user
+      authorized_key:
+        user: "{{ username }}"
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      ignore_errors: yes
+
+    - name: Configure SSH - disable password auth
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^PasswordAuthentication"
+        line: "PasswordAuthentication no"
+      notify: restart sshd
+
+    - name: Configure SSH - disable root login
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^PermitRootLogin"
+        line: "PermitRootLogin no"
+      notify: restart sshd
+
+    - name: Configure UFW - allow SSH
+      ufw:
+        rule: allow
+        port: "22"
+
+    - name: Configure UFW - allow HTTP
+      ufw:
+        rule: allow
+        port: "80"
+
+    - name: Configure UFW - allow HTTPS
+      ufw:
+        rule: allow
+        port: "443"
+
+    - name: Configure UFW - allow NodePort range
+      ufw:
+        rule: allow
+        port: "30000:32767"
+        proto: tcp
+
+    - name: Enable UFW
+      ufw:
+        state: enabled
+        policy: deny
+
+    - name: Enable fail2ban
+      systemd:
+        name: fail2ban
+        enabled: yes
+        state: started
+
+    - name: Set timezone
+      timezone:
+        name: Europe/Kiev
+
+    - name: Setup LVM for logs
+      block:
+        - name: Create PV for logs
+          command: pvcreate /dev/nvme1n1
+          ignore_errors: yes
+
+        - name: Create VG for logs
+          command: vgcreate vg_logs /dev/nvme1n1
+          ignore_errors: yes
+
+        - name: Create LV for logs
+          command: lvcreate -L 8G -n lv_logs vg_logs
+          ignore_errors: yes
+
+        - name: Format LV for logs
+          command: mkfs.ext4 /dev/vg_logs/lv_logs
+          ignore_errors: yes
+
+        - name: Create mount point for logs
+          file:
+            path: /var/log/k8s
+            state: directory
+
+        - name: Mount logs LV
+          mount:
+            path: /var/log/k8s
+            src: /dev/vg_logs/lv_logs
+            fstype: ext4
+            state: mounted
+          ignore_errors: yes
+
+    - name: Setup LVM for database
+      block:
+        - name: Create PV for database
+          command: pvcreate /dev/nvme2n1
+          ignore_errors: yes
+
+        - name: Create VG for database
+          command: vgcreate vg_db /dev/nvme2n1
+          ignore_errors: yes
+
+        - name: Create LV for database
+          command: lvcreate -L 8G -n lv_db vg_db
+          ignore_errors: yes
+
+        - name: Format LV for database
+          command: mkfs.ext4 /dev/vg_db/lv_db
+          ignore_errors: yes
+
+        - name: Create mount point for database
+          file:
+            path: /var/lib/rancher
+            state: directory
+
+    - name: Install k3s
+      shell: curl -sfL https://get.k3s.io | sh -
+      args:
+        creates: /usr/local/bin/k3s
+
+    - name: Set k3s config permissions
+      file:
+        path: /etc/rancher/k3s/k3s.yaml
+        mode: "0644"
+
+  handlers:
+    - name: restart sshd
+      systemd:
+        name: sshd
+        state: restarted

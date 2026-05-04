@@ -1,0 +1,28 @@
+namespace: watchlist
+
+image:
+  backend: massontg/watchlist-backend:20260426161411
+  frontend: massontg/watchlist-frontend:20260426161411
+
+replicas:
+  fastapi: 2
+  celery: 1
+
+postgres:
+  db: watchlist
+  user: postgres
+  password: postgres123
+
+secret:
+  secretKey: "devops-secret-key-for-jwt-2024"
+
+redis:
+  host: redis
+
+service:
+  frontendNodePort: 30080
+
+resources:
+  fastapi:
+    memory: "256Mi"
+    cpu: "250m"

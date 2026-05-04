@@ -1,0 +1,73 @@
+2026-03-25 18:41:21,896 [WARNING] passlib.handlers.bcrypt: (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/home/andrew/Desktop/Kursach/watchlist/backend/venv/lib/python3.12/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-03-25 18:41:21,902 [ERROR] root: Unhandled error: password cannot be longer than 72 bytes, truncate manually if necessary (e.g. my_password[:72])
+2026-03-25 18:41:29,057 [WARNING] passlib.handlers.bcrypt: (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/home/andrew/Desktop/Kursach/watchlist/backend/venv/lib/python3.12/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-03-25 18:41:29,064 [ERROR] root: Unhandled error: password cannot be longer than 72 bytes, truncate manually if necessary (e.g. my_password[:72])
+2026-03-25 18:43:41,031 [INFO] app.routers.auth: Новий користувач: test@test.com
+2026-03-25 18:44:48,860 [INFO] app.routers.media: Користувач test@test.com додав: Inception
+2026-03-25 18:55:27,060 [INFO] app.routers.auth: Користувач увійшов: test@test.com
+2026-03-25 18:57:04,784 [INFO] app.routers.media: Користувач test@test.com додав: Месники: Фінал
+2026-03-25 19:26:12,121 [INFO] app.routers.media: Користувач test@test.com додав: The Fast and the Furious
+2026-03-25 19:26:19,272 [INFO] app.routers.media: Користувач test@test.com видалив: Месники: Фінал
+2026-03-25 19:31:27,835 [INFO] app.routers.media: Користувач test@test.com додав: Lie to Me
+2026-03-25 19:38:08,696 [ERROR] root: Unhandled error: (psycopg2.errors.UndefinedColumn) column media.user_rating does not exist
+LINE 1: ...ting AS media_rating, media.notes AS media_notes, media.user...
+                                                             ^
+
+[SQL: SELECT media.id AS media_id, media.user_id AS media_user_id, media.title AS media_title, media.type AS media_type, media.status AS media_status, media.genre AS media_genre, media.year AS media_year, media.rating AS media_rating, media.notes AS media_notes, media.user_rating AS media_user_rating, media.user_comment AS media_user_comment, media.created_at AS media_created_at, media.updated_at AS media_updated_at 
+FROM media 
+WHERE media.user_id = %(user_id_1)s ORDER BY media.created_at DESC]
+[parameters: {'user_id_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-25 19:38:10,883 [ERROR] root: Unhandled error: (psycopg2.errors.UndefinedColumn) column media.user_rating does not exist
+LINE 1: ...ting AS media_rating, media.notes AS media_notes, media.user...
+                                                             ^
+
+[SQL: SELECT media.id AS media_id, media.user_id AS media_user_id, media.title AS media_title, media.type AS media_type, media.status AS media_status, media.genre AS media_genre, media.year AS media_year, media.rating AS media_rating, media.notes AS media_notes, media.user_rating AS media_user_rating, media.user_comment AS media_user_comment, media.created_at AS media_created_at, media.updated_at AS media_updated_at 
+FROM media 
+WHERE media.user_id = %(user_id_1)s ORDER BY media.created_at DESC]
+[parameters: {'user_id_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-25 19:38:15,906 [ERROR] root: Unhandled error: (psycopg2.errors.UndefinedColumn) column media.user_rating does not exist
+LINE 1: ...ting AS media_rating, media.notes AS media_notes, media.user...
+                                                             ^
+
+[SQL: SELECT media.id AS media_id, media.user_id AS media_user_id, media.title AS media_title, media.type AS media_type, media.status AS media_status, media.genre AS media_genre, media.year AS media_year, media.rating AS media_rating, media.notes AS media_notes, media.user_rating AS media_user_rating, media.user_comment AS media_user_comment, media.created_at AS media_created_at, media.updated_at AS media_updated_at 
+FROM media 
+WHERE media.user_id = %(user_id_1)s ORDER BY media.created_at DESC]
+[parameters: {'user_id_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-25 19:38:18,505 [ERROR] root: Unhandled error: (psycopg2.errors.UndefinedColumn) column media.user_rating does not exist
+LINE 1: ...ting AS media_rating, media.notes AS media_notes, media.user...
+                                                             ^
+
+[SQL: SELECT media.id AS media_id, media.user_id AS media_user_id, media.title AS media_title, media.type AS media_type, media.status AS media_status, media.genre AS media_genre, media.year AS media_year, media.rating AS media_rating, media.notes AS media_notes, media.user_rating AS media_user_rating, media.user_comment AS media_user_comment, media.created_at AS media_created_at, media.updated_at AS media_updated_at 
+FROM media 
+WHERE media.user_id = %(user_id_1)s ORDER BY media.created_at DESC]
+[parameters: {'user_id_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-25 19:38:18,981 [ERROR] root: Unhandled error: (psycopg2.errors.UndefinedColumn) column media.user_rating does not exist
+LINE 1: ...ting AS media_rating, media.notes AS media_notes, media.user...
+                                                             ^
+
+[SQL: SELECT media.id AS media_id, media.user_id AS media_user_id, media.title AS media_title, media.type AS media_type, media.status AS media_status, media.genre AS media_genre, media.year AS media_year, media.rating AS media_rating, media.notes AS media_notes, media.user_rating AS media_user_rating, media.user_comment AS media_user_comment, media.created_at AS media_created_at, media.updated_at AS media_updated_at 
+FROM media 
+WHERE media.user_id = %(user_id_1)s ORDER BY media.created_at DESC]
+[parameters: {'user_id_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-25 20:01:01,586 [INFO] app.routers.media: Користувач test@test.com видалив: Inception
+2026-03-25 20:01:03,449 [INFO] app.routers.media: Користувач test@test.com видалив: The Fast and the Furious
+2026-03-25 20:01:05,195 [INFO] app.routers.media: Користувач test@test.com видалив: Lie to Me
+2026-03-25 20:01:26,956 [INFO] app.routers.media: Користувач test@test.com додав: Lie to Me
+2026-03-25 20:01:42,431 [INFO] app.routers.media: Користувач test@test.com оновив: Lie to Me
+2026-03-25 20:11:04,129 [INFO] app.routers.auth: Користувач увійшов: test@test.com
+2026-03-25 20:18:16,499 [INFO] app.routers.media: Користувач test@test.com додав: The Fast and the Furious
