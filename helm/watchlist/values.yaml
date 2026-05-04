@@ -1,8 +1,8 @@
 namespace: watchlist
 
 image:
-  backend: massontg/watchlist-backend:20260426161411
-  frontend: massontg/watchlist-frontend:20260426161411
+  backend: massontg/watchlist-backend:20260504200634
+  frontend: massontg/watchlist-frontend:20260504200634
 
 replicas:
   fastapi: 2
